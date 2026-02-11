@@ -5,6 +5,29 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
-  background-color: #020617; /* Slate 950 */
+  /* Nền tối với hiệu ứng gradient nhẹ từ góc trên */
+  background: radial-gradient(circle at 50% -20%, #0f172a, #020617);
+  color: #cbd5e1; /* Slate 300 */
+  min-height: 100vh;
+  /* Thêm vân lưới kỹ thuật số (Cyber grid) rất mờ */
+  background-image: linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Hiệu ứng cuộn thanh trượt đẹp hơn */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981; /* Màu Emerald khi hover */
 }
