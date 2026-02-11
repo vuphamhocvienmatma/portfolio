@@ -1,69 +1,51 @@
-import { Server, Database, Cloud, Shield, Code2, Globe, Cpu, Layers } from "lucide-react";
+import { Server, Database, Cloud, Shield, Code2, Layers, Cpu, Globe } from "lucide-react";
 
 export const PERSONAL_INFO = {
-  name: "Pham Nguyen Vu",
-  role: "Senior Backend Engineer | .NET & Security Specialist",
-  bio: "Software Engineer with over 6 years of experience, possessing a strong technical foundation in .NET and cloud technologies. Proven track record of leading projects, defining resilient system architectures, and engineering high-performance data storage solutions.",
+  name: "Nguyen Van Hung",
+  role: "Senior Backend Engineer",
+  bio: "Software Engineer with 6+ years of experience. I architect resilient systems, not just write code. Master of Information Security.",
   email: "ezralight@outlook.com.vn",
   github: "https://github.com/vuphamhocvienmatma",
   linkedin: "http://linkedin.com/in/v%C5%A9-ph%E1%BA%A1m-82719626b",
-  location: "Hanoi, Vietnam",
-  experience_years: "6+",
-  education: {
-    degree: "Master of Information Security",
-    school: "Academy of Cryptography Techniques",
-    grade: "Excellent",
-    year: "2024"
-  }
+  avatar: "https://placehold.co/400x400/2563eb/white?text=NVH",  
 };
 
-export const SUMMARY_POINTS = [
-  "6+ years of experience working as a software developer.",
-  "Excellent written and verbal communication skills with proven fluency in English.",
-  "Experience in implementing design patterns (MVC, DTO) for multitier distributed Enterprise Applications.",
-  "Worked with international customers (US, Singapore, Thailand).",
-  "Strong expertise in OOP, SOLID, UML, Design Patterns, and Microservices Architecture.",
-  "Deep knowledge of Azure Ecosystem (AD, Blob, Web Job, Functions, Service Bus).",
-  "Architecting applications as sets of independent services (Microservices).",
-  "Proficient in Agile/Scrum methodologies."
-];
-
-export const SKILLS = [
+export const SKILLS_WITH_DEFINITIONS = [
   { 
-    category: "Core Backend", 
-    icon: Server,
-    color: "text-blue-400",
-    items: [".NET Core", "ASP.NET WebAPI", "C#", "Entity Framework", "SignalR", "Clean Architecture"] 
+    id: "microservices",
+    name: "Microservices", 
+    category: "Architecture",
+    desc: "Architecting applications as a collection of loosely coupled services. Experienced in handling distributed transactions using SAGA pattern."
   },
   { 
-    category: "Database & Cache", 
-    icon: Database,
-    color: "text-emerald-400",
-    items: [".SQL Server", "PostgreSQL", "Redis", "CouchDB", "Elasticsearch", "Optimization"] 
+    id: "cqrs",
+    name: "CQRS", 
+    category: "Architecture",
+    desc: "Command Query Responsibility Segregation. Decoupling read and write operations to scale them independently, often used with Event Sourcing."
   },
   { 
-    category: "Cloud (Azure)", 
-    icon: Cloud,
-    color: "text-sky-400",
-    items: ["Azure App Services", "Azure Functions", "Service Bus", "Azure SQL", "Key Vault", "Azure AD"] 
+    id: "redis",
+    name: "Redis Caching", 
+    category: "Performance",
+    desc: "Implemented distributed caching strategies (Cache-aside, Write-through) to reduce DB load and improve latency by 40%."
   },
   { 
-    category: "Architecture", 
-    icon: Layers,
-    color: "text-purple-400",
-    items: ["Microservices", "DDD", "CQRS", "Event-Sourcing", "SAGA Pattern", "Distributed Systems"] 
+    id: "azure-ad",
+    name: "Azure AD / OAuth2", 
+    category: "Security",
+    desc: "Deep understanding of Identity Management, OIDC flows, and securing APIs with JWT tokens and Role-based policies."
   },
   { 
-    category: "Security", 
-    icon: Shield,
-    color: "text-red-400",
-    items: ["OAuth2/OpenID", "Digital Signature", "Cryptography", "OWASP Top 10", "Identity Mgmt"] 
+    id: "rabbitmq",
+    name: "RabbitMQ", 
+    category: "Messaging",
+    desc: "Designing asynchronous communication backbones to ensure system resilience and decoupling between services."
   },
   { 
-    category: "Frontend & Others", 
-    icon: Globe,
-    color: "text-orange-400",
-    items: ["Angular", "TypeScript", "Docker", "CI/CD", "RabbitMQ", "Scrum/Agile"] 
+    id: "sql-opt",
+    name: "SQL Optimization", 
+    category: "Database",
+    desc: "Expert in analyzing Execution Plans, Indexing strategies, and partitioning to handle millions of records."
   },
 ];
 
@@ -72,41 +54,27 @@ export const PROJECTS = [
     title: "Banking Evaluate System",
     role: "Backend Lead",
     period: "2023 - Present",
-    client: "Singapore",
-    desc: "A high-performance analysis system designed to provide detailed, visual reports on individual branches and performance over the years.",
-    tech: [".NET Core", "RabbitMQ", "Redis", "Microservices", "SQL Server"],
-    highlights: [
-      "Designed a Microservices architecture handling high concurrency for multi-dimensional analytical reports.",
-      "Implemented CQRS pattern and Redis Caching strategies to reduce report generation time by 40%.",
-      "Orchestrated inter-service communication using RabbitMQ to ensure data consistency.",
-      "Optimized complex queries for financial risk metrics (credit, market, operational risks).",
-    ],
+    desc: "High-performance analysis system for multi-dimensional financial reports.",
+    image: "https://placehold.co/600x400/1e293b/white?text=System+Architecture",
+    tech: [".NET Core", "RabbitMQ", "Redis", "CQRS"],
+    details: "Designed Microservices handling high concurrency. Implemented CQRS and Redis Caching to reduce report generation time by 40%."
   },
   {
     title: "HR Management Super App",
-    role: "Senior Backend Developer",
+    role: "Senior Backend Dev",
     period: "2022 - 2023",
-    client: "Thailand",
-    desc: "A comprehensive HR super-application containing all information, conducting HR-related transactions, and receiving timely support.",
-    tech: ["Azure Functions", "Azure Blob", "SAP Integration", "Angular", ".NET 6"],
-    highlights: [
-      "Designed secure Auth flows (OAuth2) and Digital Signature integration ensuring legal validity.",
-      "Architected background processing jobs using Azure Web Jobs and scalable storage with Azure Blob.",
-      "Built robust connectors for SAP API integration to synchronize extensive HR data.",
-      "Implemented a dynamic, matrix-based RBAC (Role-Based Access Control) system.",
-    ],
+    desc: "Comprehensive HR super-app with Digital Signature and Secure Auth.",
+    image: "https://placehold.co/600x400/0f172a/white?text=Secure+Flow",
+    tech: ["Azure Functions", "Azure Blob", "SAP Integration"],
+    details: "Designed secure Auth flows (OAuth2) and Digital Signature. Architected background jobs using Azure Web Jobs."
   },
   {
     title: "OmiFab - MesserSoft",
-    role: "Full-stack Developer",
+    role: "Full-stack Dev",
     period: "2021 - 2022",
-    client: "Global",
-    desc: "A system to process Sales Quotations for cutting systems. We receive orders from customers, analyze them, and automate machine workflows.",
-    tech: ["ASP.NET Core", "Blazor", "CouchDB", "MSSQL", "SignalR"],
-    highlights: [
-      "Translated complex industrial cutting requirements into automated work-step algorithms.",
-      "Managed a hybrid data layer using MSSQL for relational transactional data and CouchDB for flexible document storage.",
-      "Optimized database queries to ensure fast data retrieval and processing.",
-    ],
+    desc: "Industrial automation system for processing Sales Quotations.",
+    image: "https://placehold.co/600x400/334155/white?text=Automation+Logic", 
+    tech: ["ASP.NET Core", "Blazor", "CouchDB"],
+    details: "Managed hybrid data layer (SQL + NoSQL). Translated complex industrial requirements into algorithms."
   },
 ];
