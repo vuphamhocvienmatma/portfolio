@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative overflow-x-hidden selection:bg-purple-500/30">
-      
+
       {/* BACKGROUND HI-TECH: Các đốm sáng di chuyển */}
       <div className="fixed inset-0 z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse" />
@@ -33,9 +33,9 @@ export default function Home() {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-24 relative z-10">
-        
+
         {/* === HEADER SECTION === */}
-        <motion.section 
+        <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -49,24 +49,24 @@ export default function Home() {
             </span>
             <span className="font-mono text-xs text-slate-300 tracking-wider">AVAILABLE FOR HIRE</span>
           </div>
-          
+
           {/* Tên Gradient "Màu mè" như bạn muốn */}
           <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-cyan-200 drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">
               {PERSONAL_INFO.name}
             </span>
           </h1>
-          
+
           <h2 className="text-2xl md:text-3xl text-slate-300 font-light mb-8 flex items-center gap-3">
             <Code2 className="text-purple-500" />
-            <span className="font-mono text-purple-400">is_a</span> 
+            <span className="font-mono text-purple-400">is_a</span>
             {PERSONAL_INFO.role}
           </h2>
 
           <p className="text-slate-400 max-w-2xl text-lg leading-relaxed mb-10 font-sans border-l-2 border-purple-500/30 pl-6">
             {PERSONAL_INFO.bio}
           </p>
-          
+
           <div className="flex gap-5">
             {[
               { icon: Github, link: PERSONAL_INFO.github, label: "GITHUB" },
@@ -84,7 +84,7 @@ export default function Home() {
         {/* === SKILLS SECTION (NO MORE TABLES) === */}
         <section className="mb-32">
           <div className="flex items-end justify-between mb-12 border-b border-slate-800 pb-4">
-             <h3 className="text-3xl font-bold text-white flex items-center gap-3">
+            <h3 className="text-3xl font-bold text-white flex items-center gap-3">
               <Zap className="text-yellow-400 fill-yellow-400" size={24} />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-orange-400">
                 Tech Stack
@@ -93,7 +93,7 @@ export default function Home() {
             <span className="font-mono text-xs text-slate-500 hidden md:block">01 // ARSENAL</span>
           </div>
 
-          <motion.div 
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -105,11 +105,11 @@ export default function Home() {
                 <h4 className="font-mono text-sm text-cyan-400/80 uppercase tracking-widest border-l-2 border-cyan-500/30 pl-3">
                   {skillGroup.category}
                 </h4>
-                
+
                 {/* Thay vì kẻ bảng, dùng Flex wrap + Gradient Chips */}
                 <div className="flex flex-wrap gap-2">
                   {skillGroup.items.map((item, idx) => (
-                    <motion.span 
+                    <motion.span
                       key={item}
                       variants={itemVariants}
                       whileHover={{ scale: 1.05, textShadow: "0 0 8px rgb(168,85,247)" }}
@@ -135,7 +135,7 @@ export default function Home() {
             </h3>
             <span className="font-mono text-xs text-slate-500 hidden md:block">02 // WORKS</span>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {PROJECTS.map((project, index) => (
               <motion.div
@@ -144,13 +144,13 @@ export default function Home() {
                 onClick={() => setSelectedProject(project)}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                whileHover={{ y: -8, shadow: "0 20px 40px -15px rgba(124, 58, 237, 0.2)" }}
+                whileHover={{ y: -8, boxShadow: "0 20px 40px -15px rgba(124, 58, 237, 0.2)" }}
                 transition={{ duration: 0.3 }}
                 className="cursor-pointer group relative p-1 rounded-2xl bg-gradient-to-b from-slate-700/50 to-slate-900/50 hover:from-purple-500/50 hover:to-cyan-500/50 transition-colors"
               >
                 {/* Inner Card content */}
                 <div className="bg-[#0b0f19] h-full w-full rounded-xl p-6 relative overflow-hidden">
-                   {/* Background Noise nhỏ trong card */}
+                  {/* Background Noise nhỏ trong card */}
                   <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <Database size={64} />
                   </div>
@@ -160,16 +160,16 @@ export default function Home() {
                       {project.title}
                     </h4>
                     <span className="text-xs font-mono text-slate-500 mb-4">{project.role}</span>
-                    
+
                     <p className="text-slate-400 text-sm line-clamp-3 mb-6 flex-grow leading-relaxed">
                       {project.desc}
                     </p>
-                    
+
                     <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-800/50">
                       <div className="flex -space-x-2">
-                         {/* Fake Tech Dots */}
-                         <div className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-cyan-400">C#</div>
-                         <div className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-purple-400">DB</div>
+                        {/* Fake Tech Dots */}
+                        <div className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-cyan-400">C#</div>
+                        <div className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] text-purple-400">DB</div>
                       </div>
                       <span className="text-xs font-mono text-purple-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                         DETAILS <ChevronRight size={14} />
@@ -200,7 +200,7 @@ export default function Home() {
             >
               {/* Header của Modal */}
               <div className="relative h-32 bg-gradient-to-r from-slate-900 to-purple-900/50 p-8 flex items-end">
-                 <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); setSelectedProject(null); }}
                   className="absolute top-4 right-4 p-2 rounded-full bg-black/20 hover:bg-white/10 text-white transition-colors"
                 >
@@ -223,7 +223,7 @@ export default function Home() {
 
                 <div className="bg-slate-900/50 p-6 rounded-xl border border-slate-800/50">
                   <h4 className="font-mono text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <Zap size={14} className="text-yellow-500"/> Engineering Highlights
+                    <Zap size={14} className="text-yellow-500" /> Engineering Highlights
                   </h4>
                   <ul className="grid gap-3">
                     {selectedProject.highlights.map((h, i) => (
