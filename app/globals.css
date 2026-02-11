@@ -2,32 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ÉP BUỘC LIGHT MODE */
 :root {
-  --foreground-rgb: 15, 23, 42; /* Slate 900 */
-  --background-rgb: 248, 250, 252; /* Slate 50 */
+  --background: #ffffff;
+  --foreground: #0f172a; /* Slate 900 - Đen than */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
-  /* Pattern chấm bi cực nhẹ cho nền khoa học */
-  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-color: var(--background);
+  color: var(--foreground);
+  /* Lưới ô vuông mờ nhạt chuẩn kỹ thuật (Engineering Grid) */
+  background-image: 
+    linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+    linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-/* Class tiện ích cho Card kính mờ */
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-}
-
-/* Ẩn scrollbar xấu xí */
+/* Tùy chỉnh thanh cuộn cho gọn */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+  background-color: #cbd5e1;
+  border-radius: 4px;
 }

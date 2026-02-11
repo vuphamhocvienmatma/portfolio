@@ -2,158 +2,145 @@
 
 import { useState } from 'react';
 import { PERSONAL_INFO, PROJECTS, SKILLS_WITH_DEFINITIONS } from "./data";
-import { Github, Linkedin, Mail, ArrowRight, BookOpen, Layers, X, Download } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUpRight, ChevronDown, ChevronUp, Layers, BookOpen, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const [activeDefinition, setActiveDefinition] = useState<string | null>(null);
+  // State để mở rộng định nghĩa Skill
+  const [openSkillId, setOpenSkillId] = useState<string | null>(null);
 
   return (
-    <main className="min-h-screen font-sans">
+    <div className="min-h-screen flex flex-col md:flex-row font-sans bg-white text-slate-900">
       
-      {/* 1. FLOATING CONTACT BUTTON (Luôn bay theo Scroll) */}
-      <motion.a 
-        href={`mailto:${PERSONAL_INFO.email}`}
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        whileHover={{ scale: 1.1 }}
-        className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 bg-blue-600 text-white rounded-full shadow-xl hover:bg-blue-700 cursor-pointer"
-      >
-        <Mail size={24} />
-      </motion.a>
-
-      <div className="max-w-6xl mx-auto px-6 py-12 md:py-20 space-y-32">
+      {/* === CỘT TRÁI: SIDEBAR CỐ ĐỊNH (Thông tin cá nhân) === */}
+      <aside className="w-full md:w-[350px] md:h-screen md:sticky md:top-0 border-r border-slate-200 bg-white/80 backdrop-blur p-8 flex flex-col justify-between z-20">
         
-        {/* 2. HERO SECTION (Layout khoa học: Text trái - Ảnh phải) */}
-        <section className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
-          <div className="flex-1 space-y-6">
-            <div className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold tracking-wider rounded-md border border-blue-100">
-              SENIOR BACKEND ENGINEER
+        <div className="space-y-8">
+          {/* Avatar & Name */}
+          <div className="space-y-4">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-slate-200 shadow-sm">
+               {/* Thay ảnh thật của bạn vào app/data.ts */}
+               <img src={PERSONAL_INFO.avatar} alt="Avatar" className="w-full h-full object-cover" />
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-              Architecture.<br/>Security.<br/>Scale.
-            </h1>
-            <p className="text-xl text-slate-600 max-w-lg leading-relaxed">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900">{PERSONAL_INFO.name}</h1>
+              <p className="text-blue-600 font-mono text-sm mt-1 bg-blue-50 inline-block px-2 py-1 rounded">
+                {PERSONAL_INFO.role}
+              </p>
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed">
               {PERSONAL_INFO.bio}
             </p>
-            
-            <div className="flex gap-4 pt-4">
-              <a href={PERSONAL_INFO.github} target="_blank" className="flex items-center gap-2 text-slate-600 hover:text-black font-medium transition-colors">
-                <Github size={20} /> Github
-              </a>
-              <a href={PERSONAL_INFO.linkedin} target="_blank" className="flex items-center gap-2 text-slate-600 hover:text-blue-700 font-medium transition-colors">
-                <Linkedin size={20} /> LinkedIn
-              </a>
-            </div>
           </div>
 
-          {/* Ảnh đại diện với khung trang trí */}
-          <div className="relative w-64 h-64 md:w-96 md:h-96 flex-shrink-0">
-            <div className="absolute inset-0 bg-blue-600 rounded-2xl rotate-6 opacity-10"></div>
-            <div className="absolute inset-0 bg-slate-900 rounded-2xl -rotate-3 opacity-5"></div>
-            <img 
-              src={PERSONAL_INFO.avatar} 
-              alt="Profile" 
-              className="relative w-full h-full object-cover rounded-2xl shadow-2xl border-4 border-white"
-            />
+          {/* Contact Links */}
+          <div className="flex flex-col gap-2">
+            <a href={PERSONAL_INFO.github} target="_blank" className="flex items-center gap-3 px-4 py-2 rounded-md bg-slate-50 hover:bg-slate-100 border border-slate-200 text-sm font-medium transition-colors">
+              <Github size={16} /> Github Profile
+            </a>
+            <a href={PERSONAL_INFO.linkedin} target="_blank" className="flex items-center gap-3 px-4 py-2 rounded-md bg-slate-50 hover:bg-slate-100 border border-slate-200 text-sm font-medium transition-colors">
+              <Linkedin size={16} /> LinkedIn Profile
+            </a>
+            <a href={`mailto:${PERSONAL_INFO.email}`} className="flex items-center gap-3 px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors shadow-sm">
+              <Mail size={16} /> Email Me
+            </a>
           </div>
-        </section>
+        </div>
 
-        {/* 3. INTERACTIVE DICTIONARY (Click to define) */}
-        <section>
-          <div className="flex items-center gap-3 mb-8">
-            <BookOpen className="text-blue-600" />
-            <h3 className="text-2xl font-bold text-slate-900">Technical Glossary</h3>
+        <div className="hidden md:block text-xs text-slate-400 font-mono">
+          © 2026 Portfolio.<br/>Designed for Engineering.
+        </div>
+      </aside>
+
+
+      {/* === CỘT PHẢI: NỘI DUNG CHÍNH (Cuộn) === */}
+      <main className="flex-1 p-6 md:p-12 md:max-w-4xl space-y-24">
+        
+        {/* SECTION 1: TECHNICAL GLOSSARY (Interactive) */}
+        <section id="skills">
+          <div className="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+            <BookOpen className="text-blue-600" size={24} />
+            <h2 className="text-2xl font-bold text-slate-900">Technical Glossary</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* List Skills */}
-            <div className="flex flex-wrap gap-3 content-start">
-              {SKILLS_WITH_DEFINITIONS.map((skill) => (
-                <button
-                  key={skill.id}
-                  onClick={() => setActiveDefinition(activeDefinition === skill.id ? null : skill.id)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${
-                    activeDefinition === skill.id 
-                      ? "bg-blue-600 text-white border-blue-600 shadow-lg scale-105" 
-                      : "bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:bg-blue-50"
-                  }`}
+          <div className="grid grid-cols-1 gap-4">
+            {SKILLS_WITH_DEFINITIONS.map((skill) => (
+              <div key={skill.id} className="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                <button 
+                  onClick={() => setOpenSkillId(openSkillId === skill.id ? null : skill.id)}
+                  className="w-full flex items-center justify-between p-4 text-left bg-slate-50 hover:bg-slate-100 transition-colors"
                 >
-                  {skill.name}
-                </button>
-              ))}
-            </div>
-
-            {/* Definition Box (Hiển thị khi click) */}
-            <div className="relative min-h-[150px]">
-              <AnimatePresence mode="wait">
-                {activeDefinition ? (
-                  <motion.div
-                    key={activeDefinition}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="p-6 bg-white rounded-xl border border-blue-100 shadow-xl"
-                  >
-                    <span className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2 block">
-                      {SKILLS_WITH_DEFINITIONS.find(s => s.id === activeDefinition)?.category}
-                    </span>
-                    <h4 className="text-xl font-bold text-slate-900 mb-3">
-                      {SKILLS_WITH_DEFINITIONS.find(s => s.id === activeDefinition)?.name}
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed">
-                      {SKILLS_WITH_DEFINITIONS.find(s => s.id === activeDefinition)?.desc}
-                    </p>
-                  </motion.div>
-                ) : (
-                  <div className="h-full flex items-center justify-center p-6 border-2 border-dashed border-slate-200 rounded-xl text-slate-400 text-sm">
-                    Select a skill on the left to see my understanding/implementation of it.
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest w-24">{skill.category}</span>
+                    <span className="font-bold text-slate-900">{skill.name}</span>
                   </div>
-                )}
-              </AnimatePresence>
-            </div>
+                  {openSkillId === skill.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </button>
+                
+                <AnimatePresence>
+                  {openSkillId === skill.id && (
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="border-t border-slate-200 bg-white"
+                    >
+                      <div className="p-4 text-slate-600 text-sm leading-relaxed border-l-4 border-blue-600 ml-4 my-2 bg-blue-50/50">
+                        <span className="font-bold text-blue-800">My Implementation:</span> {skill.desc}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
           </div>
         </section>
 
-        {/* 4. PROJECTS WITH IMAGES (Card Style) */}
-        <section>
-          <div className="flex items-center gap-3 mb-10">
-            <Layers className="text-blue-600" />
-            <h3 className="text-2xl font-bold text-slate-900">Selected Work</h3>
+
+        {/* SECTION 2: SELECTED WORK (Large Images) */}
+        <section id="projects">
+          <div className="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+            <Layers className="text-blue-600" size={24} />
+            <h2 className="text-2xl font-bold text-slate-900">Selected Work</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-16">
             {PROJECTS.map((project, index) => (
-              <motion.div
+              <motion.div 
                 key={index}
-                whileHover={{ y: -10 }}
-                className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
               >
-                {/* Ảnh Project */}
-                <div className="h-48 overflow-hidden bg-slate-100 relative">
+                {/* Cột Ảnh Dự Án */}
+                <div className="relative aspect-video bg-slate-100 rounded-xl overflow-hidden border border-slate-200 shadow-sm group-hover:shadow-xl transition-shadow duration-300">
                   <img 
                     src={project.image} 
                     alt={project.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-xs font-bold text-slate-900 shadow-sm">
-                    {project.period}
-                  </div>
+                  {/* Overlay khi hover */}
+                  <div className="absolute inset-0 bg-blue-900/0 group-hover:bg-blue-900/10 transition-colors"></div>
                 </div>
 
-                <div className="p-6 flex flex-col flex-grow">
-                  <h4 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                    {project.title}
-                  </h4>
-                  <p className="text-sm text-blue-600 font-medium mb-4">{project.role}</p>
-                  
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">
-                    {project.desc}
+                {/* Cột Thông Tin */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors flex items-center gap-2">
+                      {project.title}
+                      <ArrowUpRight size={18} className="opacity-0 group-hover:opacity-100 transition-opacity text-blue-600" />
+                    </h3>
+                    <p className="font-mono text-sm text-slate-500 mt-1">{project.period} — {project.role}</p>
+                  </div>
+
+                  <p className="text-slate-600 leading-relaxed">
+                    {project.details}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-100">
-                    {project.tech.slice(0, 3).map(t => (
-                      <span key={t} className="px-2 py-1 bg-slate-50 text-slate-600 text-xs rounded border border-slate-100">
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tech.map(t => (
+                      <span key={t} className="px-2 py-1 bg-slate-100 text-slate-700 text-xs font-medium rounded border border-slate-200">
                         {t}
                       </span>
                     ))}
@@ -164,14 +151,35 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FOOTER */}
-        <footer className="border-t border-slate-200 pt-10 text-center">
-            <p className="text-slate-500 text-sm">
-              © 2026 Nguyen Van Hung. Engineered for performance.
-            </p>
-        </footer>
+        {/* SECTION 3: PROFESSIONAL SUMMARY (Text Only) */}
+        <section>
+          <div className="flex items-center gap-3 mb-8 border-b border-slate-200 pb-4">
+            <User className="text-blue-600" size={24} />
+            <h2 className="text-2xl font-bold text-slate-900">Summary</h2>
+          </div>
+          <div className="prose prose-slate max-w-none text-slate-600">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 list-disc pl-5">
+              <li>6+ years of experience in Software Development.</li>
+              <li>Master of Information Security (Excellent Grade).</li>
+              <li>Expertise in Microservices & Distributed Systems.</li>
+              <li>Strong background in Azure Cloud Ecosystem.</li>
+              <li>Fluency in English (Written & Verbal).</li>
+              <li>Proven track record with International Clients.</li>
+            </ul>
+          </div>
+        </section>
 
-      </div>
-    </main>
+      </main>
+      
+      {/* Nút Contact nổi bay theo màn hình */}
+      <motion.a
+        href={`mailto:${PERSONAL_INFO.email}`}
+        className="fixed bottom-6 right-6 md:hidden w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-xl z-50"
+        whileTap={{ scale: 0.9 }}
+      >
+        <Mail size={20} />
+      </motion.a>
+
+    </div>
   );
 }
